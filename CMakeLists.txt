@@ -11,6 +11,7 @@ else(USE_SYSTEM_OPENCV)
 endif()
 
 if (USE_BM_CODEC)
+    add_definitions(-DUSE_BM_CODEC=1)
     set(BMNNSDK_TOP /home/yuan/bmnnsdk2-bm1684_v2.0.3)
     set(ffmpeg_inc ${BMNNSDK_TOP}/include/ffmpeg)
     set(ffmpeg_link_dirs ${BMNNSDK_TOP}/lib/ffmpeg/x86

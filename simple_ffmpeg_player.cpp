@@ -38,7 +38,7 @@ extern "C"
 static void handle_frame(AVFrame *pFrame, FILE *fp_yuv)
 {
 
-    auto y_size = pFrame->width * pFrame->height;
+    uint32_t y_size = pFrame->width * pFrame->height;
     if (pFrame->format == AV_PIX_FMT_YUV420P || pFrame->format == AV_PIX_FMT_YUVJ420P) {
 
         fwrite(pFrame->data[0], 1, y_size, fp_yuv);    //Y
@@ -178,13 +178,14 @@ int main(int argc, char *argv[]) {
     }
 
     //SOC, default is nv12, so don't need to set options.
-    AVDictionary *opts = nullptr;
+    AVDictionary *opts = NULL;
 
 #if USE_BM_CODEC
     // cbcr_interleave=0: OUTPUT is yuv420p;
     // cbcr_interleave=1: OUTPUT is NV12
     av_dict_set_int(&opts, "cbcr_interleave", 0, 0);
     av_dict_set(&opts, "handle_packet_loss", "1", 0);
+    av_dict_set(&opts, "pcie_no_copyback", "0", 0);
 #endif
 
     if (avcodec_open2(pCodecCtx, pCodec, &opts) < 0) {

@@ -12,3 +12,4 @@ This program support MacOS and Linux, it isn't tested on Windows.
    To play YUV File use command line:
    ffplay -s WIDTHxHEIGHT -pix_fmt nv12 output.yuv
 
+3. ./compile.sh or ./compile.sh bmcodec
